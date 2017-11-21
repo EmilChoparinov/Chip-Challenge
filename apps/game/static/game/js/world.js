@@ -31,7 +31,7 @@ export function world() {
     }
 
     this.cornerRender = function(){
-
+        //start project
     }
 
     this.mainRender = function(){
