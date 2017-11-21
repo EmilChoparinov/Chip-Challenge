@@ -31,15 +31,17 @@ function world() {
         'row': 10,
         'col': 10,
     }
+
+    this.world[this.player['row']][this.player['col']] = 1
     this.render = function () {
         console.log('hello')
         var nextFrame = '';
         for (var row = 0; row < this.world.length; row++) {
             nextFrame += `<div class="game_row">`
             for (var col = 0; col < this.world[row].length; col++) {
-                // if (this.world[col][row] == 5) {
-                    nextFrame += SPACE_VIEW;
-                // }
+                if (this.world[col][row] == 5) nextFrame += VIEW_BOUND_EDGE_VIEW;
+                if (this.world[col][row] == 0) nextFrame += SPACE_VIEW;
+                else if(this.world[col][row] == 1) nextFrame += PLAYER1_VIEW;  
             }
             nextFrame += `</div>`
         }
@@ -48,10 +50,8 @@ function world() {
     }
 
     this.cornerRender = function () {
-
     }
 
     this.mainRender = function () {
-
     }
 }
