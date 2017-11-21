@@ -1,7 +1,6 @@
 .box{
     width: 100vw;
     height: 100vh;
-    background-color: green;
 }
 .box-center{
     display: flex;
@@ -9,5 +8,15 @@
     align-items: center; /*align vertical */
     width: 100vw;
     height: 100vh;
-    background-color: red;
+    /* background-color: red; */
+}
+img{
+    width: 2.5vw;
+    height: 3.25vh;
+}
+.game_row{
+    /* display: block; */
+}
+#game{
+    /* background-color: green; */
 }
