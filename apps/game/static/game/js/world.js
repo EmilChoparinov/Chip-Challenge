@@ -32,6 +32,14 @@ export function world() {
 
     this.cornerRender = function(){
         //start project
+        //counter = 0;
+        //while (counter != 25) {
+
+        //}
+        //for (var row = this.player["row"]; row < world[row].length; row++) {
+        //    for (var col = 0; col < world["row"])
+        //}
+
     }
 
     this.mainRender = function(){
