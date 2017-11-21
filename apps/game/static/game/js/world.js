@@ -1,3 +1,8 @@
+PLAYER1_VIEW = `<img src="{% static game/sprites/player1.png'%}">`;
+SPACE_VIEW = `<img src="{% static game/sprites/space.png'%}">`;
+VIEW_BOUND_EDGE_VIEW = `<img src="{% static game/sprites/view_bound_edge.png'%}">`;
+VIEW_BOUND_VIEW = `<img src="{% static game/sprites/view_bound.png'%}">`;
+WALL_VIEW =`<img src="{% static game/sprites/player1.png'%}">`;
 export function world() {
     this.world = [
         [5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5],
@@ -35,6 +40,6 @@ export function world() {
     }
 
     this.mainRender = function(){
-        
+
     }
 }
