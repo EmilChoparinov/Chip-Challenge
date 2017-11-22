@@ -11,12 +11,12 @@
     /* background-color: red; */
 }
 img{
-    width: 2.5vw;
-    height: 3.25vh;
+    width: 2rem;
+    height: 2rem;
 }
 .game_row{
     /* display: block; */
 }
 #game{
-    /* background-color: green; */
+    /* width: 100vw; */
 }
