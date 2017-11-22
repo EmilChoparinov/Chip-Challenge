@@ -38,6 +38,10 @@ class world {
     }
 
     render() {
+        this.cornerRender()
+    }
+
+    cornerRender() {
         var nextFrame = '';
         for (var row = 0; row < this.world.length; row++) {
             nextFrame += `<div class="game_row">`
@@ -51,9 +55,6 @@ class world {
             nextFrame += `</div>`
         }
         $('#game').html(nextFrame)
-    }
-
-    cornerRender() {
     }
 
     mainRender() {
