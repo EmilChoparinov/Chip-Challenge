@@ -69,6 +69,11 @@ class AStar(object):
         self.grid_width = world.shape[0]
 
     def init_grid(self, world):
+        """ initializes grid based on current world
+            parmeter world
+            retruns cell grid
+        """
+
         walls = get_walls(world)
         for x in range(self.grid_width):
             for y in range(self.grid_height):
@@ -89,21 +94,62 @@ class AStar(object):
             self.end = self.get_cell(p2[0],p2[1])
 
     def get_heuristic(self, cell):
-    """
-    Compute the heuristic value H for a cell: distance between this cell and the ending cell multiply by 10.
-    parameter cell
-    returns heuristic value H
-    """
+        """
+        Compute the heuristic value H for a cell: distance between this cell and the ending cell multiply by 10.
+        parameter cell
+        returns heuristic value H
+        """
         return 10 * (abs(cell.x - self.end.x) + abs(cell.y - self.end.y))
 
     def get_cell(self, x, y):
-    """
-    Returns a cell from the cells list
-    @param x cell x coordinate
-    @param y cell y coordinate
-    @returns cell
-    """
+        """
+        Returns a cell from the cells list
+        @param x cell x coordinate
+        @param y cell y coordinate
+        @returns cell
+        """
         return self.cells[x * self.grid_height + y]
+
+
+    def get_adjacent_cells(self, cell):
+        """
+        Returns adjacent cells to a cell. Clockwise starting
+        from the one on the right.
+        param cell get adjacent cells for this cell
+        returns adjacent cells list
+        """
+        cells = []
+        if cell.x < self.grid_width-1:
+            cells.append(self.get_cell(cell.x+1, cell.y))
+        if cell.y > 0:
+            cells.append(self.get_cell(cell.x, cell.y-1))
+        if cell.x > 0:
+            cells.append(self.get_cell(cell.x-1, cell.y))
+        if cell.y < self.grid_height-1:
+            cells.append(self.get_cell(cell.x, cell.y+1))
+        return cells
+
+    def display_path(self):
+        """ simple display of path """
+        cell = self.end
+        while cell.parent is not self.start:
+            cell = cell.parent
+        print 'path: cell: %d,%d' % (cell.x, cell.y)
+
+    def update_cell(self, adj, cell):
+        """
+        Update adjacent cell
+        @param adj adjacent cell to current cell
+        @param cell current cell being processed
+        """
+        adj.g = cell.g + 10
+        adj.h = self.get_heuristic(adj)
+        adj.parent = cell
+        adj.f = adj.h + adj.g
+
+
+
+
 
 
 
