@@ -20,8 +20,7 @@ function tr_handler(identifier_f, text) {
     $('tr:last').after(
         `
         <tr>
-            <td><img src="/static/game/sprites/player2.png" class='profile'></td>
-            <td>${text}</td>
+            <td><img src="/static/game/sprites/player2.png" class='profile'> ${text}</td>
         </tr>
         `
     )
