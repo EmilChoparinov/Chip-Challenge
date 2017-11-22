@@ -69,15 +69,15 @@ class world {
             [5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5],
         ]
         this.player = {
-            'row': 25,
-            'col': 25,
+            'row': 2,
+            'col': 2,
         }
         this.world[this.player['row']][this.player['col']] = 1
     }
 
     render() {
         var nextFrame = '';
-        var startPoint = this.getStartPoint(4,10)
+        var startPoint = this.getStartPoint(5,5)
         if (startPoint['row'] < 0) startPoint['row'] = 0;
         if (startPoint['col'] < 0) startPoint['col'] = 0;
         if (startPoint['col'] > 60 - startPoint['eCol']) startPoint['col'] = 60 - startPoint['eCol'];
