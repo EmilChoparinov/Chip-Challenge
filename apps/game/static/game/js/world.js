@@ -77,27 +77,17 @@ class world {
 
     render() {
         var nextFrame = '';
-        // for (var row = 0; row < this.world.length; row++) {
-        //     nextFrame += `<div class="game_row">`
-        //     for (var col = 0; col < this.world[row].length; col++) {
-                // if (this.world[row][col] == 5) nextFrame += this.VIEW_BOUND_EDGE_VIEW;
-                // if (this.world[row][col] == 0) nextFrame += this.SPACE_VIEW;
-                // if (this.world[row][col] == 1) nextFrame += this.PLAYER1_VIEW;
-                // if (this.world[row][col] == 2) nextFrame += this.PLAYER2_VIEW;
-                // if (this.world[row][col] == 3) nextFrame += this.WALL_VIEW;
-        //     }
-        //     nextFrame += `</div>`
-        // }
         var startPoint = {
             'row': this.player['row'] - 5,
             'col': this.player['col'] - 5,
         }
-        if(startPoint['row'] < 0) startPoint['row'] = 0;
-        if(startPoint['col'] < 0) startPoint['col'] = 0;
-        console.log(startPoint['row'] < 0)
-        for(var row = startPoint['row']; row < startPoint['row']+20; row++){
+        if (startPoint['row'] < 0) startPoint['row'] = 0;
+        if (startPoint['col'] < 0) startPoint['col'] = 0;
+        if (startPoint['col'] > 49) startPoint['col'] = 49;
+        if (startPoint['row'] > 49) startPoint['row'] = 49;
+        for (var row = startPoint['row']; row < startPoint['row'] + 11; row++) {
             nextFrame += `<div class="game_row">`
-            for(var col = startPoint['col']; col < startPoint['col']+20; col++){
+            for (var col = startPoint['col']; col < startPoint['col'] + 11; col++) {
                 if (this.world[row][col] == 5) nextFrame += this.VIEW_BOUND_EDGE_VIEW;
                 if (this.world[row][col] == 0) nextFrame += this.SPACE_VIEW;
                 if (this.world[row][col] == 1) nextFrame += this.PLAYER1_VIEW;
@@ -106,13 +96,8 @@ class world {
             }
             nextFrame += `</div>`
         }
+
         $('#game').html(nextFrame)
-    }
-
-    cornerRender() {
-    }
-
-    mainRender() {
     }
 
     moveRowBy(val) {
