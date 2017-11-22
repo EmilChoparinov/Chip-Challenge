@@ -35,14 +35,14 @@ def distance(p1,p2, start):
 #print distance(p1,p2, start_1)
 
 def move(world,p,s):
-    if p['x']<s[0] & (s[0]-1!=3 | s[0]-1!=5):
+    if p['x']<s[0] & (s[0]-1!=3 or s[0]-1!=5):
         s[0]-=1
-    elif p['x']>s[0] & (s[0]+1!=3 | s[0]+1!=5):
+    elif p['x']>s[0] & (s[0]+1!=3 or s[0]+1!=5):
         s[0]+=1
     else:
-        if p['y']<s[0] & (s[1]-1!=3 | s[1]-1!=5):
+        if p['y']<s[0] & (s[1]-1!=3 or s[1]-1!=5):
             s[1]-=1
-        elif p['y']>s[0] & (s[1]+1!=3 | s[1]+1!=5):
+        elif p['y']>s[0] & (s[1]+1!=3 or s[1]+1!=5):
             s[1]+=1
     return s
 

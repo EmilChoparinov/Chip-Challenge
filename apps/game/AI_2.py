@@ -41,8 +41,18 @@ class Cell(object):
 
 
 def get_walls(world):
-    for x in range world.shape[0]:
-        for y in range world.shape[1]:
+    wall = []
+    for x in range(world.shape[0]):
+        for y in range(world.shape[1]):
+            #print world[x][y]
+            if (world[x][y] == 3 or world[x][y]==5):
+                print world[x][y]
+                wall.append((x,y))
+    return tuple(wall)
+
+print get_walls(world)
+
+
 
 
 
