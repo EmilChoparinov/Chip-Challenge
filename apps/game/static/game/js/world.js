@@ -38,7 +38,6 @@ class world {
     }
 
     render() {
-        console.log('hello')
         var nextFrame = '';
         for (var row = 0; row < this.world.length; row++) {
             nextFrame += `<div class="game_row">`
@@ -69,6 +68,6 @@ class world {
     moveColBy(val) {
         this.world[this.player['row']][this.player['col']] = 0
         this.player['col'] += val;
-        this.world[this.player['row']][this.player['col']] = 1        
+        this.world[this.player['row']][this.player['col']] = 1
     }
 }
