@@ -4,7 +4,6 @@ $(document).ready(function () {
     var player = world_render.player;
 
     $(document).on('keydown', 'body', function (e) {
-        console.log(e.keyCode)
         switch (e.keyCode) {
             case 37: //Move left
                 if (!canMove("left")) {
