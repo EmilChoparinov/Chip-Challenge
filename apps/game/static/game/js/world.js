@@ -83,3 +83,13 @@ class world {
     }
 }
 
+class PointSystem {
+    constructor(Points){
+    var playerPoints = 0;
+    }
+    AddPoints(player) {
+        var points = this.player.playerPoints += 1
+        $('#game').html(points)
+    }
+    
+}
