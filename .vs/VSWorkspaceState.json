@@ -1,0 +1,17 @@
+{
+  "ExpandedNodes": [
+    "",
+    "\\apps",
+    "\\apps\\game",
+    "\\apps\\game\\static",
+    "\\apps\\game\\static\\game",
+    "\\apps\\game\\static\\game\\css",
+    "\\apps\\game\\static\\game\\js",
+    "\\apps\\game\\static\\game\\sprites",
+    "\\apps\\game\\templates",
+    "\\apps\\game\\templates\\game",
+    "\\multiplayer_dancing_game"
+  ],
+  "SelectedNode": "\\multiplayer_dancing_game\\urls.py",
+  "PreviewInSolutionExplorer": false
+}
