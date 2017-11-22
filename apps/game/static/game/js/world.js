@@ -77,27 +77,14 @@ class world {
 
     render() {
         var nextFrame = '';
-        // for (var row = 0; row < this.world.length; row++) {
-        //     nextFrame += `<div class="game_row">`
-        //     for (var col = 0; col < this.world[row].length; col++) {
-                // if (this.world[row][col] == 5) nextFrame += this.VIEW_BOUND_EDGE_VIEW;
-                // if (this.world[row][col] == 0) nextFrame += this.SPACE_VIEW;
-                // if (this.world[row][col] == 1) nextFrame += this.PLAYER1_VIEW;
-                // if (this.world[row][col] == 2) nextFrame += this.PLAYER2_VIEW;
-                // if (this.world[row][col] == 3) nextFrame += this.WALL_VIEW;
-        //     }
-        //     nextFrame += `</div>`
-        // }
-        var startPoint = {
-            'row': this.player['row'] - 15,
-            'col': this.player['col'] - 15,
-        }
-        if(startPoint['row'] < 0) startPoint['row'] = 0;
-        if(startPoint['col'] < 0) startPoint['col'] = 0;
-        console.log(startPoint['row'] < 0)
-        for(var row = startPoint['row']; row < startPoint['row']+20; row++){
+        var startPoint = this.getStartPoint(4,10)
+        if (startPoint['row'] < 0) startPoint['row'] = 0;
+        if (startPoint['col'] < 0) startPoint['col'] = 0;
+        if (startPoint['col'] > 60 - startPoint['eCol']) startPoint['col'] = 60 - startPoint['eCol'];
+        if (startPoint['row'] > 60 - startPoint['eRow']) startPoint['row'] = 60 - startPoint['eRow'];
+        for (var row = startPoint['row']; row < startPoint['row'] + startPoint['eRow']; row++) {
             nextFrame += `<div class="game_row">`
-            for(var col = startPoint['col']; col < startPoint['col']+20; col++){
+            for (var col = startPoint['col']; col < startPoint['col'] + startPoint['eCol']; col++) {
                 if (this.world[row][col] == 5) nextFrame += this.VIEW_BOUND_EDGE_VIEW;
                 if (this.world[row][col] == 0) nextFrame += this.SPACE_VIEW;
                 if (this.world[row][col] == 1) nextFrame += this.PLAYER1_VIEW;
@@ -109,12 +96,16 @@ class world {
         $('#game').html(nextFrame)
     }
 
-    cornerRender() {
-    }
 
-    mainRender() {
+    getStartPoint(rRow, rCol){
+        var startPoint = {
+            'row': this.player['row'] - rRow,
+            'col': this.player['col'] - rCol,
+            'eRow': rRow*2+1,
+            'eCol': rCol*2+1,
+        }
+        return startPoint;
     }
-
     moveRowBy(val) {
         this.world[this.player['row']][this.player['col']] = 0
         this.player['row'] += val;
