@@ -11,12 +11,30 @@
     /* background-color: red; */
 }
 img{
-    width: 2rem;
-    height: 2rem;
+    width: 3.5rem;
+    height: 3.5rem;
 }
 .game_row{
     /* display: block; */
 }
 #game{
-    /* width: 100vw; */
+    margin-right: 3vh;
+}
+.constrain{
+    height: 50vh;
+    width: 25vw;
+    overflow-y: scroll;
+    word-break:break-all;    
+}
+::-webkit-scrollbar {
+    display:none;
+}
+
+#hide-scroller{
+    overflow: hidden
+}
+.profile{
+    width: 1.75rem;
+    height: 1.75rem;
+
 }
