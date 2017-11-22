@@ -1,17 +1,19 @@
 class world {
     constructor(world) {
-        this.PLAYER1_VIEW = `<img src="/static/game/sprites/player1.png">`;
+        this.PLAYER1_VIEW = `<img src="/static/game/sprites/robot1_left.png">`;
         this.PLAYER2_VIEW = `<img src="/static/game/sprites/player2.png">`;
         this.SPACE_VIEW = `<img src="/static/game/sprites/space.png">`;
         this.VIEW_BOUND_EDGE_VIEW = `<img src="/static/game/sprites/view_bound_edge.png">`;
         this.VIEW_BOUND_VIEW = `<img src="/static//game/sprites/view_bound.png">`;
         this.WALL_VIEW = `<img src="/static/game/sprites/wall.png">`;
+        this.COIN_VIEW = `<img src="/static/game/sprites/coin.png">`
         this.world = world
         this.player = {
             'row': 2,
             'col': 2,
         }
         this.player2 = {}
+        this.points = new PointSystem()
     }
 
     render() {
@@ -30,6 +32,7 @@ class world {
                 if (this.world[row][col] == 1) nextFrame += this.PLAYER1_VIEW;
                 if (this.world[row][col] == 2) nextFrame += this.PLAYER2_VIEW;
                 if (this.world[row][col] == 3) nextFrame += this.WALL_VIEW;
+                if (this.world[row][col] == 6) nextFrame += this.COIN_VIEW;
             }
             nextFrame += `</div>`
         }
@@ -52,6 +55,9 @@ class world {
         } else {
             this.world[this.player['row']][this.player['col']] = 0
         }
+        if(this.world[this.player['row'] + val][this.player['col']] == 6){
+            this.points.AddPoints(1);
+        }
         this.player['row'] += val;
         this.world[this.player['row']][this.player['col']] = 1
     }
@@ -62,18 +68,24 @@ class world {
         } else {
             this.world[this.player['row']][this.player['col']] = 0
         }
+        if(this.world[this.player['row']][this.player['col'] + val] == 6){
+            this.points.AddPoints(1);
+        }
         this.player['col'] += val;
         this.world[this.player['row']][this.player['col']] = 1
     }
-    player2Update(update){
-        if(this.player2['row'] != undefined){
+    player2Update(update) {
+        if (this.player2['row'] != undefined) {
             this.world[this.player2['row']][this.player2['col']] = 0
+        }
+        if(this.world[this.player['row']][this.player['col']] == 6){
+            this.points.AddPoints(1);
         }
         this.player2 = update;
         this.world[this.player2['row']][this.player2['col']] = 2
         this.render()
     }
-    player2Remove(){
+    player2Remove() {
         this.world[this.player2['row']][this.player2['col']] = 0
         this.player2 = {
             'row': 2,
@@ -81,4 +93,15 @@ class world {
         }
         this.render()
     }
+}
+
+class PointSystem {
+    constructor() {
+        this.playerPoints = 0;
+    }
+    AddPoints(player) {
+        this.playerPoints += 1
+        $('#points').html(`Points: ${this.playerPoints}`)
+    }
+
 }

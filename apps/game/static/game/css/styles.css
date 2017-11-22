@@ -19,6 +19,7 @@ img{
 }
 #game{
     margin-right: 3vh;
+    background-color: black;
 }
 .constrain{
     height: 50vh;
