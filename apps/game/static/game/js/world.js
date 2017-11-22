@@ -3,9 +3,9 @@ class world {
         this.PLAYER1_VIEW = `<img src="/static/game/sprites/robot1_left.png">`;
         this.PLAYER2_VIEW = `<img src="/static/game/sprites/robot2_right.png">`;
         this.SPACE_VIEW = `<img src="/static/game/sprites/space.png">`;
-        this.VIEW_BOUND_EDGE_VIEW = `<img src="/static/game/sprites/wall.png">`;
-        this.WALL_VIEW = `<img src="/static/game/sprites/wall.png">`;
-        this.COIN_VIEW = `<img src="/static/game/sprites/coin.png">`
+        this.VIEW_BOUND_EDGE_VIEW = `<img src="/static/game/sprites/wall1.png">`;
+        this.WALL_VIEW = `<img src="/static/game/sprites/wall1.png">`;
+        this.COIN_VIEW = `<img src="/static/game/sprites/coin1.png">`
         this.world = world
         this.player = {
             'row': 2,
@@ -100,7 +100,7 @@ class PointSystem {
     }
     AddPoints(player) {
         this.playerPoints += 1
-        $('#points').html(`Points: ${this.playerPoints}`)
+        $('#points').html(`Chips: ${this.playerPoints}`)
     }
 
 }
