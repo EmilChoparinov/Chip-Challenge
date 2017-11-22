@@ -1,19 +1,27 @@
+game_socket = new WebSocket('ws://' + window.location.host + '/play/')
+
+if(game_socket.readyState == WebSocket.OPEN) game_socket.onopen()
+
 var world_render;
 var player;
 var identifier;
 $(document).ready(function () {
 
-    socket.onopen = function () {
+    game_socket.onopen = function () {
+        game_socket.send(JSON.stringify({
+            'row': 2,
+            'col': 2,
+        }))
     }
 
-    socket.onmessage = function (e) {
-        // console.log(e)
-        if (JSON.parse(e.data)['world'] != undefined) {
+    game_socket.onmessage = function (e) {
+        console.log(e.data)
+        if(e.data == "DISCONNECT"){
+            world_render.player2Remove()
+        }
+        else if (JSON.parse(e.data)['world'] != undefined) {
             world_render = new world(JSON.parse(e.data)['world'])
-            console.log(JSON.parse(JSON.parse(e.data)['player_2_pos'])['col'])
             player = world_render.player;
-            world_render.player2 = JSON.parse(JSON.parse(e.data)['player_2_pos']);
-            console.log(JSON.parse(JSON.parse(e.data)['player_2_pos']))
             identifier = JSON.parse(e.data)['identifier']
         }
         else if(JSON.parse(e.data)['identifier'] != identifier){
@@ -30,7 +38,7 @@ $(document).ready(function () {
                 }
                 world_render.moveColBy(-1);
                 world_render.render()
-                socket.send(JSON.stringify(world_render.player))
+                game_socket.send(JSON.stringify(world_render.player))
                 break;
             case 38: //Move Up
                 if (!canMove("up")) {
@@ -38,7 +46,7 @@ $(document).ready(function () {
                 }
                 world_render.moveRowBy(-1);
                 world_render.render()
-                socket.send(JSON.stringify(world_render.player))
+                game_socket.send(JSON.stringify(world_render.player))
                 break;
             case 39: //Move Right
                 if (!canMove("right")) {
@@ -46,7 +54,7 @@ $(document).ready(function () {
                 }
                 world_render.moveColBy(1);
                 world_render.render()
-                socket.send(JSON.stringify(world_render.player))
+                game_socket.send(JSON.stringify(world_render.player))
                 break;
             case 40: //Move down
                 if (!canMove("down")) {
@@ -54,7 +62,7 @@ $(document).ready(function () {
                 }
                 world_render.moveRowBy(1);
                 world_render.render()
-                socket.send(JSON.stringify(world_render.player))
+                game_socket.send(JSON.stringify(world_render.player))
                 break;
         }
     })

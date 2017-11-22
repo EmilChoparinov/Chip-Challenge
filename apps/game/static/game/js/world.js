@@ -16,7 +16,6 @@ class world {
 
     render() {
         this.world[this.player['row']][this.player['col']] = 1
-        this.world[this.player2['row']][this.player2['col']] = 2
         var nextFrame = '';
         var startPoint = this.getStartPoint(5, 5)
         if (startPoint['row'] < 0) startPoint['row'] = 0;
@@ -67,8 +66,19 @@ class world {
         this.world[this.player['row']][this.player['col']] = 1
     }
     player2Update(update){
-        this.world[this.player2['row']][this.player2['col']] = 0
+        if(this.player2['row'] != undefined){
+            this.world[this.player2['row']][this.player2['col']] = 0
+        }
         this.player2 = update;
+        this.world[this.player2['row']][this.player2['col']] = 2
+        this.render()
+    }
+    player2Remove(){
+        this.world[this.player2['row']][this.player2['col']] = 0
+        this.player2 = {
+            'row': 2,
+            'col': 2,
+        }
         this.render()
     }
 }

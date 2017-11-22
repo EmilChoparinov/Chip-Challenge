@@ -2,7 +2,6 @@ from channels import Channel, Group
 import json
 from boards import WORLD_1
 def ws_connect(message):
-    print str(message.reply_channel)
     Group('player').add(message.reply_channel)
     # message.reply_channel.send({"accept": True})
     message.reply_channel.send({
@@ -26,3 +25,6 @@ def ws_recieve(message):
 
 def ws_disconnect(message):
     Group('player').discard(message.reply_channel)
+    Group('player').send({
+        "text": "DISCONNECT"
+    })
