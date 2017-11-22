@@ -3,7 +3,6 @@ import json
 from boards import WORLD_1
 def ws_connect(message):
     Group('player').add(message.reply_channel)
-    # message.reply_channel.send({"accept": True})
     message.reply_channel.send({
         "text": json.dumps({
             "world": WORLD_1,
