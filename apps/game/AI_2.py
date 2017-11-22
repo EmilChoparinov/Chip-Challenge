@@ -5,24 +5,27 @@ import numpy as np
 
 
 world=np.array([[5,5,5,5,5,5,5,5,5,5,5,5,5,5,5],  
-[5,1,1,1,1,1,1,1,1,1,1,1,1,1,5], 
-[5,1,1,1,1,1,1,1,1,1,1,1,1,1,5],  
-[5,1,1,1,1,1,1,1,1,1,1,1,1,1,5],  
-[5,1,1,1,1,1,1,1,1,3,1,1,1,1,5],  
-[5,1,1,1,1,1,1,1,1,1,1,1,1,1,5], 
-[5,1,1,1,1,1,1,1,1,1,1,1,1,1,5], 
-[5,1,1,1,3,1,1,1,1,1,1,1,1,1,5],  
-[5,1,1,1,1,1,1,1,1,1,1,1,1,1,5], 
-[5,1,1,1,1,1,1,1,1,1,1,1,1,1,5], 
-[5,1,1,1,1,1,1,1,1,1,3,1,1,1,5], 
-[5,1,1,1,1,1,1,1,1,1,1,1,1,1,5], 
+[5,1,3,3,1,1,1,1,1,1,1,1,1,1,5], 
 [5,1,1,3,1,1,1,1,1,1,1,1,1,1,5],  
+[5,1,1,3,1,1,1,1,1,1,1,1,1,1,5],  
+[5,3,1,3,1,1,1,1,1,3,1,1,1,1,5],  
 [5,1,1,1,1,1,1,1,1,1,1,1,1,1,5], 
+[5,1,3,3,3,3,3,3,1,1,1,1,1,1,5], 
+[5,1,1,1,3,1,1,3,1,1,1,1,1,1,5],  
+[5,1,1,1,1,1,3,3,1,1,1,1,1,1,5], 
+[5,1,1,1,1,1,3,1,1,1,1,1,1,1,5], 
+[5,1,1,1,1,1,3,1,1,1,3,1,1,1,5], 
+[5,1,1,1,1,1,3,1,1,1,1,1,1,1,5], 
+[5,1,1,3,1,1,3,1,3,3,3,1,1,1,5],  
+[5,1,1,1,1,1,1,1,3,1,1,1,1,1,5], 
 [5,5,5,5,5,5,5,5,5,5,5,5,5,5,5]])
 
+p1 = {'row':3, 'col':13 }
+p2 = {'row':8, 'col':3 }
+
 def distance(p1,p2, start):   
-    p1 = [p1['x'], p1['y']]
-    p2 = [p2['x'], p2['y']]
+    p1 = [p1['row'], p1['col']]
+    p2 = [p2['row'], p2['col']]
     dist = cdist([p1,p2],[start],'cityblock')
     return dist
 
@@ -33,10 +36,8 @@ def get_walls(world):
         for y in range(world.shape[1]):
             #print world[x][y]
             if (world[x][y] == 3 or world[x][y]==5):
-                print world[x][y]
                 wall.append((x,y))
     return tuple(wall)
-print get_walls(world)
 
 
 
@@ -60,38 +61,64 @@ class Cell(object):
 
 
 class AStar(object):
-    def __init__(self, world):
+    def __init__(self, world, p1, p2):
         self.opened = []
         heapq.heapify(self.opened)
         self.closed = set()
         self.cells = []
-        self.grid_height = world.shape[1] 
-        self.grid_width = world.shape[0]
+        self.world = world
+        self.grid_height = world.shape[1]  
+        self.grid_width = world.shape[0] 
+        self.start = None
+        self.p1 = p1
+        self.p2 = p2
+        
 
-    def init_grid(self, world):
+    # def init_grid(self):
+    #     walls = get_walls(self.world)
+    #     #walls = ((0, 5), (1, 0), (1, 1), (1, 5), (2, 3),
+    #     #     (3, 1), (3, 2), (3, 5), (4, 1), (4, 4), (5, 1))
+    #     for x in range(self.grid_width):
+    #         for y in range(self.grid_height):
+    #             if (x, y) in walls:
+    #                 reachable = False
+    #             else:
+    #                 reachable = True
+    #             self.cells.append(Cell(x, y, reachable))
+    #     self.start = self.get_cell(1, 1)
+    #     self.end = self.get_cell(13, 13)
+
+
+
+
+    def init_grid(self):
         """ initializes grid based on current world
             parmeter world
             retruns cell grid
         """
 
-        walls = get_walls(world)
+        walls = get_walls(self.world)
         for x in range(self.grid_width):
             for y in range(self.grid_height):
                 if (x, y) in walls:
                     reachable = False
                 else:
                     reachable = True
-                    self.cells.append(Cell(x, y, reachable))
+                self.cells.append(Cell(x, y, reachable))
         if not(self.start):
+            print 'hola'
             start=[randrange(3,12), randrange(3,12)]
+            self.start = self.get_cell(start[0],start[1])
             while world[start[0],start[1]] == 3:
                 start=[randrange(3,12), randrange(3,12)]
                 self.start = self.get_cell(start[0], start[1])
-        dist = distance(p1,p2,start)
+        dist = distance(self.p1,self.p2,start)
         if dist[0]<dist[1]:
-            self.end = self.get_cell(p1[0],p1[1])
+            self.end = self.get_cell(self.p1['row'],self.p1['col'])
         else:
-            self.end = self.get_cell(p2[0],p2[1])
+            self.end = self.get_cell(self.p2['row'],self.p2['col'])
+        print self.end.x, self.end.y
+        print self.start.x, self.start.y
 
     def get_heuristic(self, cell):
         """
@@ -134,18 +161,56 @@ class AStar(object):
         cell = self.end
         while cell.parent is not self.start:
             cell = cell.parent
-        print 'path: cell: %d,%d' % (cell.x, cell.y)
+            print 'path: cell: %d,%d' % (cell.x, cell.y)
+
 
     def update_cell(self, adj, cell):
         """
         Update adjacent cell
-        @param adj adjacent cell to current cell
-        @param cell current cell being processed
+        param adj adjacent cell to current cell
+        param cell current cell being processed
         """
         adj.g = cell.g + 10
         adj.h = self.get_heuristic(adj)
         adj.parent = cell
         adj.f = adj.h + adj.g
+
+    def process(self):
+        """ implements the algortihm to find shortest disatnce between start and players"""
+
+        # add starting cell to open heap queue
+        heapq.heappush(self.opened, (self.start.f, self.start))
+        while len(self.opened):
+            # pop cell from heap queue
+            f, cell = heapq.heappop(self.opened)
+            # add cell to closed list so we don't process it twice
+            self.closed.add(cell)
+            # if ending cell, display found path
+            if cell is self.end:
+                self.display_path()
+                break
+            # get adjacent cells for cell
+            adj_cells = self.get_adjacent_cells(cell)
+            for adj_cell in adj_cells:
+                if adj_cell.reachable and adj_cell not in self.closed:
+                    if (adj_cell.f, adj_cell) in self.opened:
+                        # if adj cell in open list, check if current path is
+                        # better than the one previously found for this adj
+                        # cell.
+                        if adj_cell.g > cell.g + 10:
+                            self.update_cell(adj_cell, cell)
+                    else:
+                        self.update_cell(adj_cell, cell)
+                        # add adj cell to open list
+                        heapq.heappush(self.opened, (adj_cell.f, adj_cell))
+            
+
+
+grid = AStar(world,p1,p2)
+grid.init_grid()
+grid.process()
+
+
 
 
 
