@@ -1,10 +1,9 @@
 class world {
     constructor(world) {
         this.PLAYER1_VIEW = `<img src="/static/game/sprites/robot1_left.png">`;
-        this.PLAYER2_VIEW = `<img src="/static/game/sprites/player2.png">`;
+        this.PLAYER2_VIEW = `<img src="/static/game/sprites/robot2_right.png">`;
         this.SPACE_VIEW = `<img src="/static/game/sprites/space.png">`;
-        this.VIEW_BOUND_EDGE_VIEW = `<img src="/static/game/sprites/view_bound_edge.png">`;
-        this.VIEW_BOUND_VIEW = `<img src="/static//game/sprites/view_bound.png">`;
+        this.VIEW_BOUND_EDGE_VIEW = `<img src="/static/game/sprites/wall.png">`;
         this.WALL_VIEW = `<img src="/static/game/sprites/wall.png">`;
         this.COIN_VIEW = `<img src="/static/game/sprites/coin.png">`
         this.world = world
