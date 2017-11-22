@@ -1,7 +1,26 @@
+var world_render;
+var player;
+var identifier;
 $(document).ready(function () {
-    var world_render = new world()
-    world_render.render()
-    var player = world_render.player;
+
+    socket.onopen = function () {
+    }
+
+    socket.onmessage = function (e) {
+        // console.log(e)
+        if (JSON.parse(e.data)['world'] != undefined) {
+            world_render = new world(JSON.parse(e.data)['world'])
+            console.log(JSON.parse(JSON.parse(e.data)['player_2_pos'])['col'])
+            player = world_render.player;
+            world_render.player2 = JSON.parse(JSON.parse(e.data)['player_2_pos']);
+            console.log(JSON.parse(JSON.parse(e.data)['player_2_pos']))
+            identifier = JSON.parse(e.data)['identifier']
+        }
+        else if(JSON.parse(e.data)['identifier'] != identifier){
+            world_render.player2Update(JSON.parse(e.data)['pos'])
+        }
+        world_render.render()
+    }
 
     $(document).on('keydown', 'body', function (e) {
         switch (e.keyCode) {
@@ -11,6 +30,7 @@ $(document).ready(function () {
                 }
                 world_render.moveColBy(-1);
                 world_render.render()
+                socket.send(JSON.stringify(world_render.player))
                 break;
             case 38: //Move Up
                 if (!canMove("up")) {
@@ -18,6 +38,7 @@ $(document).ready(function () {
                 }
                 world_render.moveRowBy(-1);
                 world_render.render()
+                socket.send(JSON.stringify(world_render.player))
                 break;
             case 39: //Move Right
                 if (!canMove("right")) {
@@ -25,6 +46,7 @@ $(document).ready(function () {
                 }
                 world_render.moveColBy(1);
                 world_render.render()
+                socket.send(JSON.stringify(world_render.player))
                 break;
             case 40: //Move down
                 if (!canMove("down")) {
@@ -32,6 +54,7 @@ $(document).ready(function () {
                 }
                 world_render.moveRowBy(1);
                 world_render.render()
+                socket.send(JSON.stringify(world_render.player))
                 break;
         }
     })
