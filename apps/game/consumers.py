@@ -3,7 +3,13 @@ from channels.auth import http_session
 from channels.sessions import channel_session
 import json
 from boards import WORLD_1
+
 def ws_connect(message):
+    """Handles new websocket connections for the game portion
+    
+    Arguments:
+        message {Message} -- channel message object
+    """
     Group('player').add(message.reply_channel)
     # message.reply_channel.send({"accept": True})
     message.reply_channel.send({
@@ -18,6 +24,11 @@ def ws_connect(message):
     })
 
 def ws_recieve(message):
+    """Handles incomming connections and broadcasts change
+    
+    Arguments:
+        message {Message} -- channel message object
+    """ 
     Group('player').send({
         "text": json.dumps({
             "identifier": str(message.reply_channel),
@@ -26,6 +37,11 @@ def ws_recieve(message):
     })
 
 def ws_disconnect(message):
+    """Handles disconnections for the game portion
+    
+    Arguments:
+        message {Message} -- channel message object
+    """
     Group('player').discard(message.reply_channel)
     Group('player').send({
         "text": "DISCONNECT"
@@ -34,6 +50,11 @@ def ws_disconnect(message):
 @channel_session
 @http_session
 def ws_connect_chat(message):
+    """Handles new websocket connections for the instant messaging portion
+    
+    Arguments:
+        message {Message} -- channel message object
+    """
     Group('chat').add(message.reply_channel)
     Group('chat').send({
         "text": json.dumps({
@@ -44,6 +65,11 @@ def ws_connect_chat(message):
 
 @channel_session
 def ws_recieve_chat(message):
+    """Handles new global messages sent for messaging
+    
+    Arguments:
+        message {Message} -- channel message object
+    """
     Group('chat').send({
         "text": json.dumps({
             "message": message['text'],
