@@ -13,7 +13,7 @@ need a functioning version of [Redis](https://github.com/MicrosoftArchive/redis/
 port.
 1. Clone the repository using the helpful command `git clone https://github.com/EmilChoparinov/Chip-Challenge`
 2. Once thats done, make a python virtual environment in the root folder using the command `py -2 -m virtualenv chipenv`
-3. Now activate this environment. The windows command would be `. ./chipenv/Scripts/activate`
+3. Now activate this environment. The powershell command would be `. ./chipenv/Scripts/activate`
 4. Install the listed dependencies using this pip command: `py -2 -m pip install -r r.txt`
 5. If everything went well, you should be able to now run the server by doing `py -2 manage.py runserver`
 6. Game will be live on the route `localhost:(portyouchose)/play`
@@ -28,8 +28,9 @@ redis-server.exe executable. It should open and close.
 2. Check if its running as a service now by searching for **services** on your pc. Search for redis and you should see this:
       <img src='https://i.imgur.com/vld9qxF.jpg' width='600'>
 ### Python
-1. If you can't build a virtual environment you might not have the Python package installed. 
+* If you can't build a virtual environment you might not have the Python package installed. 
 Try the command `py -2 -m pip install virtualenv` and running again
+* If you only have python 2 installed you can drop the -2 flag.
 
 **Contributors:** [@Connor Zimmerman](https://github.com/ConnorZimmerman) 
 [@EmilChoparinov](https://github.com/EmilChoparinov) 
